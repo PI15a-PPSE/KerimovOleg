@@ -31,5 +31,14 @@
         <div>
             <span id="toggleLink" class="link" onclick="$('#devTools').slideToggle()">[Toggle Developer Tools]</span>
         </div>
+        <div id="devTools">
+            <ul id="devActions">
+                <li class="link" onclick="Ish.Go.View.startNewGame()">New Game</li>
+                <li class="link" onclick="$('#score').toggle()">Toggle Scores</li>
+                <li class="link" onclick="Ish.Go.View.toggleMarkedBoard()">Toggle Territories</li>
+                <li class="link" onclick="Ish.Go.View.printGameState()">Print Game State</li>
+            </ul>
+            <div id="gameState"></div>
+        </div>
     </div>
 </html>
