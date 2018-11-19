@@ -8,10 +8,10 @@ Only game logic and some debugging tools were developed, which means pre- and po
 Instructions
 ------------
 
-To run, launch [index.html] or [lite.html] in your browser.
+To run, launch **index.html** or **lite.html** in your browser.
 
- * [index.html] is the HTML5 version.
- * [lite.html] is a text based version, which also allows you to configure board size.
+ * **index.html** is the HTML5 version.
+ * **lite.html** is a text based version, which also allows you to configure board size.
 
 Notes
 -----
