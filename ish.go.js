@@ -38,3 +38,48 @@ var Constants = new function() {
         ENDED : "ended"
     };
 };
+
+/**
+ * OBJ: Defines changed points after a move is made.
+ */
+function MoveResult(player, newPoint, capturedPoints) {
+    this.player = player;
+    this.newPoint = newPoint;
+    this.capturedPoints = capturedPoints;
+}
+
+/**
+ * OBJ: Defines common attributes for board points/intersections.
+ */
+function Point(row, column) {
+    this.row = row;
+    this.column = column;
+    this.getNeighborAt = function(side) {
+        switch (side) {
+            case Constants.Direction.NORTH:
+                return new Point(this.row-1, this.column);
+            case Constants.Direction.SOUTH:
+                return new Point(this.row+1, this.column);
+            case Constants.Direction.EAST:
+                return new Point(this.row, this.column+1);
+            case Constants.Direction.WEST:
+                return new Point(this.row, this.column-1);
+        }
+    };
+    this.toString = function() {
+        return "(" + this.row + ", " + this.column + ")";
+    };
+    this.equals = function(other) {
+        return (this.row == other.row &&
+                this.column == other.column);
+    };
+    this.isInArray = function(array) {
+        for (var i=0; i<array.length; i++) {
+            if (this.equals(array[i])) {
+                return true;
+            }
+        }
+        return false;
+    };
+}
+};
