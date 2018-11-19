@@ -78,7 +78,7 @@ Ish.Go.Logic = new function() {
         return territory;
     };
 
-        /**
+    /**
      * Returns an array of points which are in the chain that "point" belongs to.
      *
      * A typical call passes only "point".

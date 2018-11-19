@@ -1,0 +1,119 @@
+﻿<?xml version="1.0" encoding="UTF-8"?>
+<article version="5.1" xmlns="http://docbook.org/ns/docbook"
+         xmlns:xlink="http://www.w3.org/1999/xlink"
+         xmlns:xila="http://www.w3.org/2001/XInclude/local-attributes"
+         xmlns:xi="http://www.w3.org/2001/XInclude"
+         xmlns:trans="http://docbook.org/ns/transclusion"
+         xmlns:svg="http://www.w3.org/2000/svg"
+         xmlns:m="http://www.w3.org/1998/Math/MathML"
+         xmlns:html="http://www.w3.org/1999/xhtml"
+         xmlns:db="http://docbook.org/ns/docbook">
+  <info>
+    <title>Программный Продукт "Игра Go"</title>
+
+    <author>
+      <personname><firstname>Олег</firstname><surname>Керимов</surname></personname>
+
+      <affiliation>
+        <orgname>ДонНТУ</orgname>
+      </affiliation>
+    </author>
+
+    <pubdate>19-11-2018</pubdate>
+  </info>
+
+  <section>
+    <title>Описание продукта</title>
+
+    <para>Программный продукт <emphasis role="bold">Go</emphasis>был
+    разработан для развивания логических способностей человека. Игра предназначена для 2 игроков</para>
+  </section>
+
+  <section>
+    <title>Первый запуск</title>
+
+    <para>При первом запуске игры пользователю предоставленна игровая доска на которую он может походить (первыми ходят черные), код для хода отображен ниже:</para>
+    
+    <programlisting> 
+    this.move = function(y, x) {    
+        var point = new Point(y, x);
+        var player = gGameState.currentPlayer;
+        var capturedPoints;
+        
+        // Clear previous move errors
+        gGameState.moveError = "";
+
+        // Validate move
+        if (!this.isValidMove(point, player)) {
+            return null;
+        }
+        
+        // Store previous board
+        gGameState.previousBoard = gGameState.getBoardCopy();
+        
+        // Place piece
+        gGameState.setPointStateAt(point, player.pointState);
+        
+        // Remove captured pieces (if any)
+        capturedPoints = this.getCapturedPoints(point);
+        $.each(capturedPoints, function() {
+            gGameState.setPointStateAt(this, Constants.PointState.EMPTY);
+        });
+        
+        // Change turn
+        gGameState.currentPlayer = (player == gGameState.player1) ?
+            gGameState.player2 : gGameState.player1;
+        
+        return new MoveResult(
+            player,
+            point,
+            capturedPoints
+        );
+    };
+    </programlisting>
+
+    <para>В игре ведётся подсчет очков, код которого предоставлен ниже:</para>
+
+    <programlisting>
+    this.setScores = function() {
+        var markedBoard = this.getMarkedBoard();
+        var p1 = gGameState.player1;
+        var p2 = gGameState.player2;
+        
+        // Reset scores
+        p1.score = 0;
+        p2.score = 0;
+        
+        // Scan marked board and distribute points
+        for (var y = 0; y < gGameState.boardHeight; y++) {
+            for (var x = 0; x < gGameState.boardWidth; x++) {
+                var pState = markedBoard[y][x];
+                
+                if (pState == p1.pointState) {
+                    p1.score++;
+                }
+                else if (pState == p2.pointState) {
+                    p2.score++;
+                }
+            }
+        }
+    };
+    </programlisting>
+
+    <para>Так же в любой момент игроки могут начать новую игру код обработки которой представлен ниже:</para>
+
+    <programlisting>    
+      this.newGame = function(width, height) {
+        gGameState = new GameState(
+            width,
+            height,
+            new Player(Constants.Color.BLACK, Constants.PointState.BLACK),
+            new Player(Constants.Color.WHITE, Constants.PointState.WHITE)
+        );
+    }
+    </programlisting>
+
+    <para>Таким образом, было рассмотрено 3 варианта развития событий, с
+    приведенным кодом.</para>
+  </section>
+</article>
