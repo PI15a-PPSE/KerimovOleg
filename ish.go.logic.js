@@ -8,6 +8,7 @@ Ish.Go.Logic = new function() {
     /**
      * Helper function which returns true or false if the given point
      * is in the bounds of the game state's board.
+     * @params Point point
      */
     this.isPointInBounds = function(point) {
         return (
@@ -20,6 +21,8 @@ Ish.Go.Logic = new function() {
      * Returns a Territory object for the territory which "point" is a part of.
      *
      * A typical call passes only "point".
+     * @params Point point, Territory territory
+     * @returns Territory territory
      */
     this.getTerritory = function(point, territory) {
         // TODO: make this work when board is empty
@@ -82,6 +85,9 @@ Ish.Go.Logic = new function() {
      * Returns an array of points which are in the chain that "point" belongs to.
      *
      * A typical call passes only "point".
+     * @params Point point, Array chainPoints
+     * @returns Array chainPoints
+     *
      */
     this.getChainPoints = function(point, chainPoints) {
         var pState = gGameState.getPointStateAt(point);
@@ -119,6 +125,8 @@ Ish.Go.Logic = new function() {
 
     /**
      * Returns an array of points which are captured by the piece at "point".
+     * @params Point point
+     * @returns Array chainPoints
      */
     this.getCapturedPoints = function(point) {  
         var capPoints = new Array();
@@ -149,6 +157,8 @@ Ish.Go.Logic = new function() {
      * chain that the piece at "point" belongs to.
      *
      * A typical call passes only "point".
+     * @params Point point, Array chainPoints, Array libPoints
+     * @returns Array libPoints
      */
     this.getLibertyPoints = function(point, chainPoints, libPoints) {   
         // If chainPoints or libPoints are null, make them empty arrays
@@ -186,6 +196,8 @@ Ish.Go.Logic = new function() {
     /**
      * Validates move, returning true or false.
      * Also populates gGameState.moveError if move is invalid.
+     * @params Point point, Player player
+     * @returns bool isValid
      */
     this.isValidMove = function(point, player) {
         // Check if point is empty
@@ -232,6 +244,8 @@ Ish.Go.Logic = new function() {
     /**
      * Validates and makes move by current player at the given point.
      * Returns a MoveResult with the board changes.
+     * @params float y, float x
+     * @returns MoveResult moveResult
      */
     this.move = function(y, x) {    
         var point = new Point(y, x);
@@ -271,6 +285,8 @@ Ish.Go.Logic = new function() {
 
     /**
      * Returns a board (2d array) with territores marked
+     * @params null
+     * @returns Board markedBoard
      */
     this.getMarkedBoard = function() {
         var markedBoard = gGameState.getBoardCopy();
@@ -292,6 +308,8 @@ Ish.Go.Logic = new function() {
 
     /**
      * Sets the scores of both players in gGameState
+     * @params null
+     * @returns null
      */
     this.setScores = function() {
         var markedBoard = this.getMarkedBoard();
@@ -319,6 +337,8 @@ Ish.Go.Logic = new function() {
     
     /**
      * Creates a new game, with the given board size
+     * @params int width, int height
+     * @returns null
      */
     this.newGame = function(width, height) {
         gGameState = new GameState(
